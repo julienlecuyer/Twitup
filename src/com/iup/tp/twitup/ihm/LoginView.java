@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.ihm;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -35,7 +36,7 @@ public class LoginView implements IView, ILoginObs {
 		JLabel mdp = new JLabel("Mot de passe : ");
 		JTextField tLogin = new JTextField();
 		JPasswordField tmdp = new JPasswordField();
-		JButton bLogin = new JButton("Connexion");
+		JButton bLogin = new JButton("Se connecter");
 		lError = new JLabel();
 		lError.setForeground(Color.RED);
 		lError.setText("Utilisateur/Mot de passe incorrect");
@@ -104,7 +105,8 @@ public class LoginView implements IView, ILoginObs {
 				new Insets(0,0,0,0),
 				0, 0
 				));
-		
+
+		pane.setPreferredSize(new Dimension(500, 200));
 		bLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				notifyLogin(tLogin.getText(), new String(tmdp.getPassword()));

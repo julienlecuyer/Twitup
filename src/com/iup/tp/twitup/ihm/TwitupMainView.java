@@ -1,7 +1,9 @@
 package com.iup.tp.twitup.ihm;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -137,7 +139,8 @@ public class TwitupMainView {
 		mMenuBar.add(mFichier);
 		mMenuBar.add(mUser);
 		mFrame.setJMenuBar(mMenuBar);
-
+		mPanel = new JPanel();
+		mFrame.add(mPanel);
 		mnewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				initCreate();
@@ -173,9 +176,18 @@ public class TwitupMainView {
 	}
 
 	public void showView(IView v) {
-		mFrame.setContentPane(v.getComponent());
-		mFrame.revalidate();
-		mFrame.repaint();
+		mPanel.removeAll();
+		mPanel.add(v.getComponent(), new GridBagConstraints(
+				1, 1,
+				1, 1,
+				1.0, 1.0,
+				GridBagConstraints.CENTER,
+				GridBagConstraints.CENTER,
+				new Insets(0,0,0,0),
+				0, 0
+				));
+		mPanel.revalidate();
+		mPanel.repaint();
 	}
 	
 	public void refreshMenuLabel() {

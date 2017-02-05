@@ -1,5 +1,6 @@
 package com.iup.tp.twitup.ihm;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -101,6 +102,8 @@ public class CreateView implements IView, ICreateObs {
 				0, 0
 		));
 
+		pane.setPreferredSize(new Dimension(500, 200));
+		
 		bCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(new String(tmdp.getPassword()).equals(new String(tmdp2.getPassword())))
