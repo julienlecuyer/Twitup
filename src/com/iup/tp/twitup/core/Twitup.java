@@ -19,6 +19,7 @@ import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.CreateView;
+import com.iup.tp.twitup.ihm.IView;
 import com.iup.tp.twitup.ihm.LoginView;
 import com.iup.tp.twitup.ihm.TwitView;
 import com.iup.tp.twitup.ihm.TwitupMainView;
@@ -243,8 +244,11 @@ public class Twitup implements ITwitupObs {
 	public void userLogged() {
 		TwitView v = new TwitView();
 		twitCtrl = new TwitCtrl(mDatabase, mEntityManager, v);
+		mDatabase.addObserver(twitCtrl);
 		twitCtrl.addObserver(this);
+		twitCtrl.listTwitCtrl();
 		mMainView.showView(v);
+		System.out.println("user logged");
 		mMainView.refreshMenuLabel();
 	}
 
@@ -254,5 +258,9 @@ public class Twitup implements ITwitupObs {
 		} else {
 			initLogin();
 		}
+	}
+	
+	public void twitCreated(IView view) {
+		mMainView.showView(view);
 	}
 }

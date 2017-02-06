@@ -1,15 +1,18 @@
 package com.iup.tp.twitup.core;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Set;
 
 import com.iup.tp.twitup.datamodel.IDatabase;
+import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
+import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.ITwitObs;
 import com.iup.tp.twitup.ihm.TwitView;
 
-public class TwitCtrl implements ITwitCtrl {
+public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 	protected IDatabase mDatabase;
 	protected ITwitObs view;
 	protected EntityManager mEntityManager;
@@ -31,22 +34,61 @@ public class TwitCtrl implements ITwitCtrl {
 	public boolean CreateTwit(String twit) {
 		Twit t = new Twit(obs.getUserCo(), twit);
 		mEntityManager.sendTwit(t);
-		notifyTwitCreated();
 		return true;
 	}
 
 	@Override
 	public void notifyTwitCreated() {
-		// listTwt affichage
-		System.out.println("YTwitt créé");
+		listTwitCtrl();
+		if(obs != null)
+			obs.twitCreated(view);
 	}
-	
+
 	public void listTwitCtrl() {
 		Set<Twit> setT = mDatabase.getTwits();
-		List<Twit> listT = new ArrayList<Twit>();
+		ArrayList<Twit> listT = new ArrayList<Twit>();
 		listT.addAll(setT);
-		//listT.sort(new Comparator());
+		Collections.sort(listT, new Comparator<Twit>() {
+			@Override
+			public int compare(Twit t1, Twit t2) {
+				return Long.compare(t2.getEmissionDate(), t1.getEmissionDate()); 
+			}
+		});
+		view.listTwits(listT);
+	}
+
+	@Override
+	public void notifyTwitAdded(Twit addedTwit) {
+		notifyTwitCreated();
+	}
+
+	@Override
+	public void notifyTwitDeleted(Twit deletedTwit) {
+		// TODO Auto-generated method stub
 		
-		//view.listTwits(mDatabase.getTwits());
+	}
+
+	@Override
+	public void notifyTwitModified(Twit modifiedTwit) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyUserAdded(User addedUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyUserDeleted(User deletedUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyUserModified(User modifiedUser) {
+		// TODO Auto-generated method stub
+		
 	}
 }
