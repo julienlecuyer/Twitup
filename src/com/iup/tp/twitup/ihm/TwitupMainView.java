@@ -105,9 +105,11 @@ public class TwitupMainView {
 				System.out.println(chooser.getSelectedFile().getPath());
 			}
 		}
+
 		// Création de la fenetre principale
 		mFrame = new JFrame("Baloss Twitter");
-		mFrame.setSize(700, 400);
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		mFrame.setMinimumSize(new Dimension((int)(screenSize.width/1.5), (int)(screenSize.height/1.5)));
 		mFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(Constants.ICON_PATH)));
 		mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mFrame.setLayout(new GridBagLayout());
@@ -140,6 +142,7 @@ public class TwitupMainView {
 		mMenuBar.add(mUser);
 		mFrame.setJMenuBar(mMenuBar);
 		mPanel = new JPanel();
+		mPanel.setMinimumSize(new Dimension((int)(screenSize.width/1.5), (int)(screenSize.height/1.5)));
 		mFrame.add(mPanel);
 		mnewUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {

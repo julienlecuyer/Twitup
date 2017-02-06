@@ -119,7 +119,8 @@ public class TwitView implements IView, ITwitObs{
 	public JComponent getComponent() {
 		JPanel pane = new JPanel();
 		pane.setLayout(new GridBagLayout());
-		pane.setPreferredSize(new Dimension(700, 800));
+		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		pane.setPreferredSize(new Dimension((int)(screenSize.width/2), (int)(screenSize.height/1.5)));
 		pane.add(paneCreate, new GridBagConstraints(
 				0, 0,
 				1, 1,
