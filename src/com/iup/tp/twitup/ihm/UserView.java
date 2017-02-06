@@ -4,8 +4,12 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.UUID;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,11 +18,17 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import com.iup.tp.twitup.core.IUserCtrl;
+import com.iup.tp.twitup.datamodel.User;
 
 public class UserView implements IView, IUserObs{
 
 	protected JPanel pane;
 	protected IUserCtrl observers;
+	
+	JTextField tNom;
+	JTextField tTag;
+	JPasswordField tMdp;
+	JButton bSubmit;
 	
 	public UserView() {
 
@@ -30,17 +40,43 @@ public class UserView implements IView, IUserObs{
 		JLabel lNom = new JLabel("Nom : ");
 		JLabel lTag = new JLabel("Tag : ");
 		JLabel lMdp = new JLabel("Mot de passe : ");
-		JTextField tNom = new JTextField();
-		JTextField tTag = new JTextField();
-		JPasswordField tMdp = new JPasswordField();
+		tNom = new JTextField();
+		
+		tTag = new JTextField();
+		tTag.setEnabled(false);
+		
+		tMdp = new JPasswordField();
+		tMdp.setEnabled(false);
+		
+		bSubmit = new JButton();
+		bSubmit.setText("Modifier");
 
+		
 		pane.add(lNom, new GridBagConstraints(
 				0, 0,
-				2, 1,
+				1, 1,
 				1.0, 1.0,
 				GridBagConstraints.WEST,
 				GridBagConstraints.HORIZONTAL,
 				new Insets(0,0,0,0),
+				0, 0
+				));
+		pane.add(tNom, new GridBagConstraints(
+				1, 0,
+				1, 1,
+				1.0, 1.0,
+				GridBagConstraints.CENTER,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,0,0,0),
+				0, 0
+				));
+		pane.add(bSubmit, new GridBagConstraints(
+				2, 0,
+				1, 1,
+				0.1, 1.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,500,0,0),
 				0, 0
 				));
 		pane.add(lTag, new GridBagConstraints(
@@ -48,6 +84,15 @@ public class UserView implements IView, IUserObs{
 				1, 1,
 				1.0, 1.0,
 				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,0,0,0),
+				0, 0
+				));
+		pane.add(tTag, new GridBagConstraints(
+				1, 1,
+				1, 1,
+				10.0, 1.0,
+				GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL,
 				new Insets(0,0,0,0),
 				0, 0
@@ -61,26 +106,8 @@ public class UserView implements IView, IUserObs{
 				new Insets(0,0,0,0),
 				0, 0
 				));
-		pane.add(tNom, new GridBagConstraints(
-				2, 0,
-				1, 1,
-				1.0, 1.0,
-				GridBagConstraints.CENTER,
-				GridBagConstraints.HORIZONTAL,
-				new Insets(0,0,0,0),
-				0, 0
-				));
-		pane.add(tTag, new GridBagConstraints(
-				2, 1,
-				1, 1,
-				10.0, 1.0,
-				GridBagConstraints.CENTER,
-				GridBagConstraints.HORIZONTAL,
-				new Insets(0,0,0,0),
-				0, 0
-				));
 		pane.add(tMdp, new GridBagConstraints(
-				2, 2,
+				1, 2,
 				1, 1,
 				10.0, 1.0,
 				GridBagConstraints.CENTER,
@@ -88,12 +115,14 @@ public class UserView implements IView, IUserObs{
 				new Insets(0,0,0,0),
 				0, 0
 				));
+
+	
 		
-//		bLogin.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent ev) {
-//				notifyLogin(tLogin.getText(), new String(tmdp.getPassword()));
-//			}
-//		});
+		bSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				notifyModifNom(tNom.getText());
+			}
+		});
 	}
 	
 	
@@ -106,5 +135,15 @@ public class UserView implements IView, IUserObs{
 		observers = cc;
 	}
 
-
+	public void getUser(User u) {
+		tNom.setText(u.getName());
+		tTag.setText(u.getUserTag());
+		tMdp.setText(u.getUserPassword());
+	}
+	
+	@Override
+	public void notifyModifNom(String login) {
+		System.out.println("Login de l'user changé : "+login);
+		observers.modifLoginUser(login);
+	}
 }

@@ -270,6 +270,7 @@ public class Twitup implements ITwitupObs {
 		UserView v = new UserView();
 		userCtrl = new UserCtrl(mDatabase, mEntityManager, v);
 		userCtrl.addObserver(this);
+		userCtrl.getUser();
 		mMainView.showView(v);
 	}
 }
