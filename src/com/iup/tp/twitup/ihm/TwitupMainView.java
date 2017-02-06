@@ -171,6 +171,12 @@ public class TwitupMainView {
 			}
 		});
 		
+		mAccount.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				ctrl.initAccount();
+			}
+		});
+		
 		ctrl.initLogin();
 	}
 
