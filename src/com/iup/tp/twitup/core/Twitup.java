@@ -24,6 +24,7 @@ import com.iup.tp.twitup.ihm.LoginView;
 import com.iup.tp.twitup.ihm.TwitView;
 import com.iup.tp.twitup.ihm.TwitupMainView;
 import com.iup.tp.twitup.ihm.TwitupMock;
+import com.iup.tp.twitup.ihm.UserView;
 
 /**
  * Classe principale l'application.
@@ -37,7 +38,8 @@ public class Twitup implements ITwitupObs {
 	protected CreateCtrl createCtrl;
 	protected LoginCtrl loginCtrl;
 	protected TwitCtrl twitCtrl;
-	
+	protected UserCtrl userCtrl;
+
 	protected User userCo;
 	
 	protected IDatabase mDatabase;
@@ -262,5 +264,12 @@ public class Twitup implements ITwitupObs {
 	
 	public void twitCreated(IView view) {
 		mMainView.showView(view);
+	}
+	
+	public void initAccount() {
+		UserView v = new UserView();
+		userCtrl = new UserCtrl(mDatabase, mEntityManager, v);
+		userCtrl.addObserver(this);
+		mMainView.showView(v);
 	}
 }
