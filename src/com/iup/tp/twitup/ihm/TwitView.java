@@ -1,12 +1,16 @@
 package com.iup.tp.twitup.ihm;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,6 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import com.iup.tp.twitup.core.ITwitCtrl;
 import com.iup.tp.twitup.datamodel.Twit;
@@ -31,6 +36,7 @@ public class TwitView implements IView, ITwitObs{
 		createTwit();
 		paneList = new JPanel();
 		scrollPane = new JScrollPane(paneList);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
 		Border border = BorderFactory.createTitledBorder("Actualités");
 		scrollPane.setBorder(border);
 	}
@@ -55,7 +61,7 @@ public class TwitView implements IView, ITwitObs{
 				));
 		paneCreate.add(tArea, new GridBagConstraints(
 				0, 1,
-				1, 1,
+				2, 1,
 				1.0, 1.0,
 				GridBagConstraints.WEST,
 				GridBagConstraints.HORIZONTAL,
@@ -63,12 +69,12 @@ public class TwitView implements IView, ITwitObs{
 				0, 0
 				));
 		paneCreate.add(bAddTwit, new GridBagConstraints(
-				0, 2,
+				1, 2,
 				1, 1,
-				1.0, 1.0,
-				GridBagConstraints.WEST,
+				0.3, 1,
+				GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL,
-				new Insets(0,100,0,0),
+				new Insets(0,0,0,20),
 				0, 0
 				));
 		paneCreate.setPreferredSize(new Dimension(600, 200));
@@ -89,16 +95,36 @@ public class TwitView implements IView, ITwitObs{
 		int i = 0;
 		for(Twit t : twits) {
 			JPanel pt = new JPanel();
-			Border bt = BorderFactory.createTitledBorder(t.getTwiter().getUserTag());
+			// format date
+			Date d=new Date(t.getEmissionDate());
+	        SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+	        String dateText = df2.format(d);
+			JLabel date = new JLabel(dateText);
+			date.setFont(new Font("Arial", Font.ITALIC, 12));
+			date.setForeground(Color.gray);
+			JLabel content = new JLabel(t.getText());
+			content.setFont(new Font("Arial", Font.PLAIN, 18));
+			content.setForeground(Color.BLACK);
+
+			Border bt = BorderFactory.createTitledBorder(null, '@'+t.getTwiter().getUserTag(), TitledBorder.LEFT, TitledBorder.TOP, new Font("Arial",Font.ITALIC,13), Color.gray);
 			pt.setBorder(bt);
 			pt.setLayout(new GridBagLayout());
-			pt.add(new JLabel(t.getText()), new GridBagConstraints(
-					0, 0,
+			pt.add(content, new GridBagConstraints(
+					0, 1,
 					1, 1,
 					1.0, 1.0,
 					GridBagConstraints.WEST,
 					GridBagConstraints.HORIZONTAL,
 					new Insets(0,0,0,0),
+					0, 0
+					));
+			pt.add(date, new GridBagConstraints(
+					2,0,
+					1, 1,
+					0.01, 1.0,
+					GridBagConstraints.EAST,
+					GridBagConstraints.HORIZONTAL,
+					new Insets(-20,0,0,0),
 					0, 0
 					));
 			paneList.add(pt, new GridBagConstraints(
@@ -120,7 +146,7 @@ public class TwitView implements IView, ITwitObs{
 		JPanel pane = new JPanel();
 		pane.setLayout(new GridBagLayout());
 		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		pane.setPreferredSize(new Dimension((int)(screenSize.width/2), (int)(screenSize.height/1.5)));
+		pane.setPreferredSize(new Dimension((int)(screenSize.width/1.7), (int)(screenSize.height/1.5)));
 		pane.add(paneCreate, new GridBagConstraints(
 				0, 0,
 				1, 1,
