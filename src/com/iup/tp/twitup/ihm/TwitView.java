@@ -32,34 +32,37 @@ public class TwitView implements IView, ITwitObs{
 	protected JScrollPane scrollPane;
 	protected JPanel paneList;
 	protected JPanel paneSearch;
+	JTextField tSearch;
+	JButton bSearch;
 
 	protected ITwitCtrl observers;
 
 	public TwitView() {
-		createTwit();
 		paneSearch = new JPanel();
 		paneSearch.setSize(new Dimension(400, 400));
-		JLabel lSearch = new JLabel("Recherche :");
-		JTextField tSearch = new JTextField();
-
-		paneSearch.add(lSearch, new GridBagConstraints(
+		tSearch = new JTextField();
+		bSearch = new JButton("Rechercher");
+		tSearch.setPreferredSize(new Dimension(200, 20));
+		
+		paneSearch.add(tSearch, new GridBagConstraints(
 				0, 0,
 				1, 1,
 				1.0, 1.0,
-				GridBagConstraints.WEST,
+				GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL,
 				new Insets(0,0,0,0),
 				0, 0
 				));
-		paneSearch.add(tSearch, new GridBagConstraints(
+		paneSearch.add(bSearch, new GridBagConstraints(
 				1, 0,
 				1, 1,
 				1.0, 1.0,
-				GridBagConstraints.WEST,
+				GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL,
 				new Insets(0,0,0,0),
 				0, 0
 				));
+		createTwit();
 		paneList = new JPanel();
 		scrollPane = new JScrollPane(paneList);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
@@ -107,6 +110,11 @@ public class TwitView implements IView, ITwitObs{
 		bAddTwit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				notifyTwitCreate(tArea.getText());
+			}
+		});
+		bSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				notifyNeedListTwit(tSearch.getText());
 			}
 		});
 	}
@@ -164,6 +172,8 @@ public class TwitView implements IView, ITwitObs{
 					));
 			i++;
 		}
+		paneList.revalidate();
+		paneList.repaint();
 	}
 
 
@@ -217,9 +227,9 @@ public class TwitView implements IView, ITwitObs{
 
 
 	@Override
-	public void notifyNeedListTwit() {
+	public void notifyNeedListTwit(String search) {
 		// TODO Auto-generated method stub
-		observers.listTwitCtrl();
+		observers.listTwitCtrl(search);
 	}
 
 }
