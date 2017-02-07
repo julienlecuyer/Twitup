@@ -8,6 +8,6 @@ import com.iup.tp.twitup.datamodel.Twit;
 public interface ITwitObs extends IView{
 	void addTwitCtrl(ITwitCtrl cc);
 	void notifyTwitCreate(String twit);
-	void notifyNeedListTwit();
+	void notifyNeedListTwit(String search);
 	void listTwits(ArrayList<Twit> twits, String search);	
 }

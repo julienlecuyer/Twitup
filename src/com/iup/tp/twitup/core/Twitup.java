@@ -248,7 +248,7 @@ public class Twitup implements ITwitupObs {
 		twitCtrl = new TwitCtrl(mDatabase, mEntityManager, v);
 		mDatabase.addObserver(twitCtrl);
 		twitCtrl.addObserver(this);
-		twitCtrl.listTwitCtrl();
+		twitCtrl.listTwitCtrl(null);
 		mMainView.showView(v);
 		System.out.println("user logged");
 		mMainView.refreshMenuLabel();

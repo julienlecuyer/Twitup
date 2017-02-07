@@ -6,5 +6,5 @@ public interface ITwitCtrl {
 	void addObserver(ITwitupObs v);
 	void notifyTwitCreated();
 
-	void listTwitCtrl();
+	void listTwitCtrl(String search);
 }

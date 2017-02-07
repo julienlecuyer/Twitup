@@ -17,7 +17,7 @@ public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 	protected ITwitObs view;
 	protected EntityManager mEntityManager;
 	protected ITwitupObs obs;
-	
+
 	public TwitCtrl(IDatabase mDatabase, EntityManager mEntityManager, TwitView view) {
 		this.mDatabase = mDatabase;
 		this.mEntityManager = mEntityManager;
@@ -39,15 +39,41 @@ public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 
 	@Override
 	public void notifyTwitCreated() {
-		listTwitCtrl();
+		listTwitCtrl(null);
 		if(obs != null)
 			obs.twitCreated(view);
 	}
 
-	public void listTwitCtrl() {
+	public void listTwitCtrl(String search) {
 		Set<Twit> setT = mDatabase.getTwits();
 		ArrayList<Twit> listT = new ArrayList<Twit>();
-		listT.addAll(setT);
+		if(search == null || search.equals("")) {
+			listT.clear();
+			setT.clear();
+			setT = mDatabase.getTwits();
+			listT.addAll(setT);
+		} else {
+			if(search.startsWith("@")) {
+				listT.clear();
+				setT.clear();
+				search = search.substring(1);
+				setT = mDatabase.getTwitsWithUserTag('@'+search);
+				listT.addAll(setT);
+				setT.clear();
+				setT = mDatabase.getTwits();
+				for(Twit t : setT) {
+					if(t.getTwiter().getUserTag().equals(search) || t.getText().contains(search)) {
+						listT.add(t);
+					}
+				}
+			} else if(search.startsWith("#")) {
+				listT.clear();
+				setT.clear();
+				search = search.substring(1);
+				setT = mDatabase.getTwitsWithTag(search);
+				listT.addAll(setT);
+			}
+		}
 		Collections.sort(listT, new Comparator<Twit>() {
 			@Override
 			public int compare(Twit t1, Twit t2) {
@@ -64,31 +90,26 @@ public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 
 	@Override
 	public void notifyTwitDeleted(Twit deletedTwit) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void notifyTwitModified(Twit modifiedTwit) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void notifyUserAdded(User addedUser) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void notifyUserDeleted(User deletedUser) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void notifyUserModified(User modifiedUser) {
-		// TODO Auto-generated method stub
-		
+
 	}
 }
