@@ -279,4 +279,9 @@ public class Twitup implements ITwitupObs {
 		mMainView.refreshMenuLabel();
 		initLogin();
 	}
+	
+	public IDatabase getDatabase() {
+		// TODO Auto-generated method stub
+		return mDatabase;
+	}
 }

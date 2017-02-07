@@ -25,15 +25,11 @@ public class UserCtrl implements IUserCtrl{
 	public void getUser() {
 		view.getUser(obs.getUserCo());
 	}
-
+	
 	@Override
 	public void modifLoginUser(String login) {
 		obs.getUserCo().setName(login);
 		mEntityManager.sendUser(obs.getUserCo());
 	}
-
-
-
-	
 	
 }
