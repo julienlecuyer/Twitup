@@ -19,7 +19,7 @@ import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.CreateView;
-import com.iup.tp.twitup.ihm.IView;
+import com.iup.tp.twitup.ihm.ISwingView;
 import com.iup.tp.twitup.ihm.LoginView;
 import com.iup.tp.twitup.ihm.TwitView;
 import com.iup.tp.twitup.ihm.TwitupMainView;
@@ -262,7 +262,7 @@ public class Twitup implements ITwitupObs {
 		}
 	}
 	
-	public void twitCreated(IView view) {
+	public void twitCreated(ISwingView view) {
 		mMainView.showView(view);
 	}
 	

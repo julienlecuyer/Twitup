@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 
 import com.iup.tp.twitup.core.ILoginCtrl;
 
-public class LoginView implements IView, ILoginObs {
+public class LoginView implements ISwingView, ILoginObs {
 
 	protected JPanel pane;
 	protected ILoginCtrl observers;

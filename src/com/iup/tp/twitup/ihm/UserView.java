@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 import com.iup.tp.twitup.core.IUserCtrl;
 import com.iup.tp.twitup.datamodel.User;
 
-public class UserView implements IView, IUserObs{
+public class UserView implements ISwingView, IUserObs{
 
 	protected JPanel pane;
 	protected IUserCtrl observers;

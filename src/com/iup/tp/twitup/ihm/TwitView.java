@@ -26,7 +26,7 @@ import javax.swing.border.TitledBorder;
 import com.iup.tp.twitup.core.ITwitCtrl;
 import com.iup.tp.twitup.datamodel.Twit;
 
-public class TwitView implements IView, ITwitObs{
+public class TwitView implements ISwingView, ITwitObs{
 
 	protected JPanel paneCreate;
 	protected JScrollPane scrollPane;

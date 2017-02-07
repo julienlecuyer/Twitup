@@ -184,7 +184,7 @@ public class TwitupMainView {
 		ctrl.initCreate();
 	}
 
-	public void showView(IView v) {
+	public void showView(ISwingView v) {
 		mPanel.removeAll();
 		mPanel.add(v.getComponent(), new GridBagConstraints(
 				1, 1,

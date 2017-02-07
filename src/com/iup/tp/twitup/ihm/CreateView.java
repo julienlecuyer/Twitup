@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 
 import com.iup.tp.twitup.core.ICreateCtrl;
 
-public class CreateView implements IView, ICreateObs {
+public class CreateView implements ISwingView, ICreateObs {
 
 	protected JPanel pane;
 	protected ICreateCtrl observers;

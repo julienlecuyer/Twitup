@@ -3,24 +3,29 @@ package com.iup.tp.twitup;
 import com.iup.tp.twitup.core.Twitup;
 import com.iup.tp.twitup.mock.MockController;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 /**
  * Classe de lancement de l'application.
  * 
  * @author S.Lucas
  */
-public class TwitupLauncher {
+public class TwitupLauncher extends Application {
 
 	/**
 	 * Launcher.
 	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		Twitup twitup = new Twitup();
-		twitup.show();
+
+	@Override
+	public void start(Stage arg0) throws Exception {
+		// TODO Auto-generated method stub
 		
-		// JAVAFX
-		MockController mockController = new MockController(twitup.getDatabase());
-		mockController.startMock();
 	}
+	
+    public static void main(String[] args) { 
+        launch(args); 
+    } 
 }
