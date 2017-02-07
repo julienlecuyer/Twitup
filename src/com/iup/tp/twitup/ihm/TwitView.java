@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class TwitView implements IView, ITwitObs{
 		tSearch = new JTextField();
 		bSearch = new JButton("Rechercher");
 		tSearch.setPreferredSize(new Dimension(200, 20));
-		
+
 		paneSearch.add(tSearch, new GridBagConstraints(
 				0, 0,
 				1, 1,
@@ -112,6 +113,14 @@ public class TwitView implements IView, ITwitObs{
 				notifyTwitCreate(tArea.getText());
 			}
 		});
+		tSearch.addKeyListener(new java.awt.event.KeyAdapter() {  
+			public void keyPressed(java.awt.event.KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					notifyNeedListTwit(tSearch.getText());
+				}
+			}
+		});
+		
 		bSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				notifyNeedListTwit(tSearch.getText());
@@ -122,10 +131,7 @@ public class TwitView implements IView, ITwitObs{
 	public void listTwits(ArrayList<Twit> twits, String search) {
 		paneList.removeAll();
 		paneList.setLayout(new GridBagLayout());
-		// paneList.setPreferredSize(new Dimension(700, 800));
-		// Parcours la liste
-		// Si l'obj n'existe pas dans la liste --> ajoute dans la map et ajoute le graphic avec,
-		// Si existe affiche dans le graphique
+
 		int i = 0;
 		for(Twit t : twits) {
 			JPanel pt = new JPanel();
@@ -183,6 +189,7 @@ public class TwitView implements IView, ITwitObs{
 		pane.setLayout(new GridBagLayout());
 		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		pane.setPreferredSize(new Dimension((int)(screenSize.width/1.7), (int)(screenSize.height/1.5)));
+
 		pane.add(paneSearch, new GridBagConstraints(
 				0, 0,
 				1, 1,

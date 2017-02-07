@@ -273,4 +273,10 @@ public class Twitup implements ITwitupObs {
 		userCtrl.getUser();
 		mMainView.showView(v);
 	}
+	
+	public void decoUser() {
+		userCo = null;
+		mMainView.refreshMenuLabel();
+		initLogin();
+	}
 }

@@ -53,7 +53,6 @@ public class TwitupMainView {
 	 *  Vue pour le login 
 	 */
 	protected LoginView logV = new LoginView();
-	
 	/**
 	 * Constructeur.
 	 * 
@@ -173,7 +172,14 @@ public class TwitupMainView {
 		
 		mAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				ctrl.initAccount();
+				if(ctrl.getUserCo() != null)
+					ctrl.initAccount();
+			}
+		});
+		
+		mDeco.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				ctrl.decoUser();
 			}
 		});
 		
