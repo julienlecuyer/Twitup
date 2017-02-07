@@ -32,6 +32,7 @@ public class UserView implements IView, IUserObs{
 	
 	public UserView() {
 
+//		ImagePanel paneAvatar = new ImagePanel(observers.get, dimension)
 		pane = new JPanel();
 		pane.setPreferredSize(new Dimension(800,600));
 		Border border = BorderFactory.createTitledBorder("Mon profil");
@@ -139,6 +140,10 @@ public class UserView implements IView, IUserObs{
 		tNom.setText(u.getName());
 		tTag.setText(u.getUserTag());
 		tMdp.setText(u.getUserPassword());
+	}
+	
+	public void getAvatarPath(User u) {
+		u.getAvatarPath();
 	}
 	
 	@Override

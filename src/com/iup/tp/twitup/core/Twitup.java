@@ -273,4 +273,9 @@ public class Twitup implements ITwitupObs {
 		userCtrl.getUser();
 		mMainView.showView(v);
 	}
+
+	public IDatabase getDatabase() {
+		// TODO Auto-generated method stub
+		return mDatabase;
+	}
 }
