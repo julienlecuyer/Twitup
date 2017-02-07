@@ -9,5 +9,5 @@ public interface ITwitObs extends IView{
 	void addTwitCtrl(ITwitCtrl cc);
 	void notifyTwitCreate(String twit);
 	void notifyNeedListTwit();
-	void listTwits(ArrayList<Twit> twits);	
+	void listTwits(ArrayList<Twit> twits, String search);	
 }

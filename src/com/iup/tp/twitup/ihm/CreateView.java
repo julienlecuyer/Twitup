@@ -127,6 +127,8 @@ public class CreateView implements IView, ICreateObs {
 
 	@Override
 	public void notifyCreate(String login, String mdp) {
-		observers.addUser(login, mdp);
+		if(!observers.addUser(login, mdp)) {
+			JOptionPane.showMessageDialog(null, "Tag @"+login +" non disponible", "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

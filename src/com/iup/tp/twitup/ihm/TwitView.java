@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
@@ -30,10 +31,35 @@ public class TwitView implements IView, ITwitObs{
 	protected JPanel paneCreate;
 	protected JScrollPane scrollPane;
 	protected JPanel paneList;
+	protected JPanel paneSearch;
+
 	protected ITwitCtrl observers;
 
 	public TwitView() {
 		createTwit();
+		paneSearch = new JPanel();
+		paneSearch.setSize(new Dimension(400, 400));
+		JLabel lSearch = new JLabel("Recherche :");
+		JTextField tSearch = new JTextField();
+
+		paneSearch.add(lSearch, new GridBagConstraints(
+				0, 0,
+				1, 1,
+				1.0, 1.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,0,0,0),
+				0, 0
+				));
+		paneSearch.add(tSearch, new GridBagConstraints(
+				1, 0,
+				1, 1,
+				1.0, 1.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,0,0,0),
+				0, 0
+				));
 		paneList = new JPanel();
 		scrollPane = new JScrollPane(paneList);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
@@ -85,7 +111,7 @@ public class TwitView implements IView, ITwitObs{
 		});
 	}
 
-	public void listTwits(ArrayList<Twit> twits) {
+	public void listTwits(ArrayList<Twit> twits, String search) {
 		paneList.removeAll();
 		paneList.setLayout(new GridBagLayout());
 		// paneList.setPreferredSize(new Dimension(700, 800));
@@ -147,7 +173,7 @@ public class TwitView implements IView, ITwitObs{
 		pane.setLayout(new GridBagLayout());
 		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		pane.setPreferredSize(new Dimension((int)(screenSize.width/1.7), (int)(screenSize.height/1.5)));
-		pane.add(paneCreate, new GridBagConstraints(
+		pane.add(paneSearch, new GridBagConstraints(
 				0, 0,
 				1, 1,
 				1.0, 1.0,
@@ -156,10 +182,19 @@ public class TwitView implements IView, ITwitObs{
 				new Insets(0,0,0,0),
 				0, 0
 				));
-		pane.add(scrollPane, new GridBagConstraints(
+		pane.add(paneCreate, new GridBagConstraints(
 				0, 1,
 				1, 1,
-				1.0, 10.0,
+				1.0, 5.0,
+				GridBagConstraints.NORTH,
+				GridBagConstraints.BOTH,
+				new Insets(0,0,0,0),
+				0, 0
+				));
+		pane.add(scrollPane, new GridBagConstraints(
+				0, 2,
+				1, 1,
+				1.0, 20.0,
 				GridBagConstraints.SOUTH,
 				GridBagConstraints.BOTH,
 				new Insets(0,0,0,0),

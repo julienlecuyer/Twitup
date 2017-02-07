@@ -54,7 +54,7 @@ public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 				return Long.compare(t2.getEmissionDate(), t1.getEmissionDate()); 
 			}
 		});
-		view.listTwits(listT);
+		view.listTwits(listT, null);
 	}
 
 	@Override

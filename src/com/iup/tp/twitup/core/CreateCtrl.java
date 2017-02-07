@@ -1,6 +1,7 @@
 package com.iup.tp.twitup.core;
 
 import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import com.iup.tp.twitup.datamodel.IDatabase;
@@ -21,11 +22,22 @@ public class CreateCtrl implements ICreateCtrl {
 		view.addCreateCtrl(this);
 	}
 
-	public void addUser(String login, String mdp) {
-		User mnewUser = new User(UUID.randomUUID(), login, mdp, login, new HashSet<String>(), "");
-//		this.mDatabase.addUser(mnewUser);
-		this.mEntityManager.sendUser(mnewUser);
-		notifyCreate();
+	public boolean addUser(String login, String mdp) {
+		Set<User> list = mDatabase.getUsers();
+		boolean exist = false;
+		for(User u : list) {
+			if(u.getUserTag().equals(login)) {
+				exist = true;
+			}
+		}
+		if(!exist) {
+			User mnewUser = new User(UUID.randomUUID(), login, mdp, login, new HashSet<String>(), "");
+			this.mDatabase.addUser(mnewUser);
+			this.mEntityManager.sendUser(mnewUser);
+			notifyCreate();	
+			return true;
+		}
+		return false;
 	}
 
 	@Override
