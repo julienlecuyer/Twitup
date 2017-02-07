@@ -22,7 +22,7 @@ public class CreateCtrl implements ICreateCtrl {
 		view.addCreateCtrl(this);
 	}
 
-	public boolean addUser(String login, String mdp) {
+	public boolean addUser(String login, String nom, String mdp) {
 		Set<User> list = mDatabase.getUsers();
 		boolean exist = false;
 		for(User u : list) {
@@ -31,7 +31,7 @@ public class CreateCtrl implements ICreateCtrl {
 			}
 		}
 		if(!exist) {
-			User mnewUser = new User(UUID.randomUUID(), login, mdp, login, new HashSet<String>(), "");
+			User mnewUser = new User(UUID.randomUUID(), login, mdp, nom, new HashSet<String>(), "");
 			this.mDatabase.addUser(mnewUser);
 			this.mEntityManager.sendUser(mnewUser);
 			notifyCreate();	

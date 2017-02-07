@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -107,6 +108,14 @@ public class LoginView implements ISwingView, ILoginObs {
 				));
 
 		pane.setPreferredSize(new Dimension(500, 200));
+
+		tmdp.addKeyListener(new java.awt.event.KeyAdapter() {  
+			public void keyPressed(java.awt.event.KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					notifyLogin(tLogin.getText(), new String(tmdp.getPassword()));
+				}
+			}
+		});
 		bLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				notifyLogin(tLogin.getText(), new String(tmdp.getPassword()));
