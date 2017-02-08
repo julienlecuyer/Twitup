@@ -1,8 +1,5 @@
 package com.iup.tp.twitup;
 
-import com.iup.tp.twitup.core.Twitup;
-import com.iup.tp.twitup.mock.MockController;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 

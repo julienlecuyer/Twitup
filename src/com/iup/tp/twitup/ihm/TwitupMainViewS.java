@@ -22,7 +22,7 @@ import com.iup.tp.twitup.common.PropertiesManager;
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.core.Twitup;
 
-public class TwitupMainView {
+public class TwitupMainViewS implements IMainView<ISwingView> {
 
 	/**
 	 * Fenetre du bouchon
@@ -60,7 +60,7 @@ public class TwitupMainView {
 	 *            , Base de données de l'application.
 	 */
 
-	public TwitupMainView(Twitup ctrl) {
+	public TwitupMainViewS(Twitup ctrl) {
 		this.ctrl = ctrl;
 	}
 
@@ -77,13 +77,13 @@ public class TwitupMainView {
 			@Override
 			public void run() {
 				// Custom de l'affichage
-				JFrame frame = TwitupMainView.this.mFrame;
+				JFrame frame = TwitupMainViewS.this.mFrame;
 				Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 				frame.setLocation((screenSize.width - frame.getWidth()) / 6,
 						(screenSize.height - frame.getHeight()) / 4);
 
 				// Affichage
-				TwitupMainView.this.mFrame.setVisible(true);
+				TwitupMainViewS.this.mFrame.setVisible(true);
 
 				// TwitupMainView.this.mFrame.pack();
 			}
@@ -136,7 +136,7 @@ public class TwitupMainView {
 		mUser.add(mnewUser);
 		mUser.add(mAccount);
 		mUser.add(mDeco);
-		
+
 		mMenuBar.add(mFichier);
 		mMenuBar.add(mUser);
 		mFrame.setJMenuBar(mMenuBar);
@@ -163,26 +163,26 @@ public class TwitupMainView {
 				ctrl.chooseFile(mFrame);
 			}
 		});
-		
+
 		mHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				ctrl.initHome();
 			}
 		});
-		
+
 		mAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(ctrl.getUserCo() != null)
 					ctrl.initAccount();
 			}
 		});
-		
+
 		mDeco.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				ctrl.decoUser();
 			}
 		});
-		
+
 		ctrl.initLogin();
 	}
 
@@ -190,6 +190,12 @@ public class TwitupMainView {
 		ctrl.initCreate();
 	}
 
+	public void refreshMenuLabel() {
+		if(ctrl.getUserCo() != null) mUser.setText("Utilisateur "+ ctrl.getUserCo().getName());
+		else mUser.setText("Utilisateur invité");
+	}
+
+	@Override
 	public void showView(ISwingView v) {
 		mPanel.removeAll();
 		mPanel.add(v.getComponent(), new GridBagConstraints(
@@ -203,10 +209,5 @@ public class TwitupMainView {
 				));
 		mPanel.revalidate();
 		mPanel.repaint();
-	}
-	
-	public void refreshMenuLabel() {
-		if(ctrl.getUserCo() != null) mUser.setText("Utilisateur "+ ctrl.getUserCo().getName());
-		else mUser.setText("Utilisateur invité");
 	}
 }

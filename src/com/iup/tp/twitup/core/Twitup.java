@@ -22,7 +22,7 @@ import com.iup.tp.twitup.ihm.CreateView;
 import com.iup.tp.twitup.ihm.ISwingView;
 import com.iup.tp.twitup.ihm.LoginView;
 import com.iup.tp.twitup.ihm.TwitView;
-import com.iup.tp.twitup.ihm.TwitupMainView;
+import com.iup.tp.twitup.ihm.TwitupMainViewS;
 import com.iup.tp.twitup.ihm.TwitupMock;
 import com.iup.tp.twitup.ihm.UserView;
 
@@ -55,7 +55,7 @@ public class Twitup implements ITwitupObs {
 	/**
 	 * Vue principale de l'application.
 	 */
-	protected TwitupMainView mMainView;
+	protected TwitupMainViewS mMainView;
 
 	/**
 	 * Classe de surveillance de répertoire
@@ -126,7 +126,7 @@ public class Twitup implements ITwitupObs {
 	 * Initialisation de l'interface graphique.
 	 */
 	protected void initGui() {
-		mMainView = new TwitupMainView(this);
+		mMainView = new TwitupMainViewS(this);
 		mMainView.showGUI();
 	}
 

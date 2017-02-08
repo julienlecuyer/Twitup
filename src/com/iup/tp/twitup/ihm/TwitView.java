@@ -37,7 +37,7 @@ public class TwitView implements ISwingView, ITwitObs{
 	JButton bSearch;
 
 	protected ITwitCtrl observers;
-
+  
 	public TwitView() {
 		paneSearch = new JPanel();
 		paneSearch.setSize(new Dimension(400, 400));
