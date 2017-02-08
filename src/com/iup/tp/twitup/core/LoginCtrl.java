@@ -3,18 +3,15 @@ package com.iup.tp.twitup.core;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.ILoginObs;
-import com.iup.tp.twitup.ihm.LoginView;
 
 public class LoginCtrl implements ILoginCtrl {
 	protected IDatabase mDatabase;
-	protected ILoginObs view;
 	protected EntityManager mEntityManager;
 	protected ITwitupObs obs;
-	
-	public LoginCtrl(IDatabase mDatabase, EntityManager mEntityManager, LoginView view) {
+
+	public LoginCtrl(IDatabase mDatabase, EntityManager mEntityManager, ILoginObs view) {
 		this.mDatabase = mDatabase;
 		this.mEntityManager = mEntityManager;
-		this.view = view;
 		view.addLoginCtrl(this);
 	}
 

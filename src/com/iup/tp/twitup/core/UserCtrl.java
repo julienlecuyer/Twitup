@@ -3,7 +3,7 @@ package com.iup.tp.twitup.core;
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.ihm.UserView;
 
-public class UserCtrl implements IUserCtrl{
+public class UserCtrl implements IUserCtrl {
 	protected IDatabase mDatabase;
 	protected UserView view;
 	protected EntityManager mEntityManager;
@@ -31,5 +31,11 @@ public class UserCtrl implements IUserCtrl{
 		obs.getUserCo().setName(login);
 		mEntityManager.sendUser(obs.getUserCo());
 	}
-	
+
+	@Override
+	public void modifAvatarUser(String avatarPath) {
+		obs.getUserCo().setAvatarPath(avatarPath);
+		mEntityManager.sendUser(obs.getUserCo());
+		getUser();
+	}	
 }

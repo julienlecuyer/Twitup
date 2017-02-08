@@ -7,4 +7,6 @@ public interface IUserObs {
 
 	void notifyModifNom(String login);
 
+	void notifyModifAvatar();
+
 }

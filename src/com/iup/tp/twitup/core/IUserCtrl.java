@@ -8,4 +8,6 @@ public interface IUserCtrl {
 
 	void modifLoginUser(String login);
 
+	void modifAvatarUser(String avatarPath);
+
 }

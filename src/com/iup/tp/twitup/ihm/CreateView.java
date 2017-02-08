@@ -11,12 +11,14 @@ import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.iup.tp.twitup.core.ICreateCtrl;
 
@@ -24,7 +26,8 @@ public class CreateView implements ISwingView, ICreateObs {
 
 	protected JPanel pane;
 	protected ICreateCtrl observers;
-
+	protected String avatarPath = "";
+	
 	public CreateView() {
 
 		pane = new JPanel();
@@ -32,6 +35,7 @@ public class CreateView implements ISwingView, ICreateObs {
 		pane.setBorder(border);
 		pane.setLayout(new GridBagLayout());
 		JLabel tag = new JLabel("Tag :");
+		JLabel avatar = new JLabel("Avatar :");
 		JLabel nom = new JLabel("Nom :");
 		JLabel mdp = new JLabel("Mot de passe :");
 		JLabel mdp2 = new JLabel("Confirmer le mot de passe :");
@@ -40,36 +44,9 @@ public class CreateView implements ISwingView, ICreateObs {
 		JPasswordField tmdp = new JPasswordField();
 		JPasswordField tmdp2 = new JPasswordField();
 		JButton bCreate = new JButton("Créer");
-
+		JButton bAvatar = new JButton("Choisir un fichier ...");
 		pane.add(tag, new GridBagConstraints(
 				0, 0,
-				1, 1,
-				1.0, 1.0,
-				GridBagConstraints.WEST,
-				GridBagConstraints.HORIZONTAL,
-				new Insets(0,0,0,0),
-				0, 0
-				));
-		pane.add(nom, new GridBagConstraints(
-				0, 1,
-				1, 1,
-				1.0, 1.0,
-				GridBagConstraints.WEST,
-				GridBagConstraints.HORIZONTAL,
-				new Insets(0,0,0,0),
-				0, 0
-				));
-		pane.add(mdp, new GridBagConstraints(
-				0, 2,
-				1, 1,
-				1.0, 1.0,
-				GridBagConstraints.WEST,
-				GridBagConstraints.HORIZONTAL,
-				new Insets(0,0,0,0),
-				0, 0
-				));
-		pane.add(mdp2, new GridBagConstraints(
-				0, 3,
 				1, 1,
 				1.0, 1.0,
 				GridBagConstraints.WEST,
@@ -86,8 +63,35 @@ public class CreateView implements ISwingView, ICreateObs {
 				new Insets(0,0,0,0),
 				0, 0
 				));
-		pane.add(tNom, new GridBagConstraints(
+		pane.add(avatar, new GridBagConstraints(
+				0, 1,
 				1, 1,
+				1.0, 1.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,0,0,0),
+				0, 0
+				));
+		pane.add(bAvatar, new GridBagConstraints(
+				1, 1,
+				1, 1,
+				1.0, 1.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,0,0,0),
+				0, 0
+				));
+		pane.add(nom, new GridBagConstraints(
+				0, 2,
+				1, 1,
+				1.0, 1.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,0,0,0),
+				0, 0
+				));
+		pane.add(tNom, new GridBagConstraints(
+				1, 2,
 				1, 1,
 				1.0, 1.0,
 				GridBagConstraints.CENTER,
@@ -95,8 +99,17 @@ public class CreateView implements ISwingView, ICreateObs {
 				new Insets(0,0,0,0),
 				0, 0
 				));
+		pane.add(mdp, new GridBagConstraints(
+				0, 3,
+				1, 1,
+				1.0, 1.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,0,0,0),
+				0, 0
+				));
 		pane.add(tmdp, new GridBagConstraints(
-				1, 2,
+				1, 3,
 				1, 1,
 				10.0, 1.0,
 				GridBagConstraints.CENTER,
@@ -104,8 +117,17 @@ public class CreateView implements ISwingView, ICreateObs {
 				new Insets(0,0,0,0),
 				0, 0
 				));
+		pane.add(mdp2, new GridBagConstraints(
+				0, 4,
+				1, 1,
+				1.0, 1.0,
+				GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL,
+				new Insets(0,0,0,0),
+				0, 0
+				));
 		pane.add(tmdp2, new GridBagConstraints(
-				1, 3,
+				1, 4,
 				1, 1,
 				1.0, 1.0,
 				GridBagConstraints.CENTER,
@@ -114,7 +136,7 @@ public class CreateView implements ISwingView, ICreateObs {
 				0, 0
 				));
 		pane.add(bCreate, new GridBagConstraints(
-				1, 4,
+				1, 5,
 				1, 1,
 				1.0, 1.0,
 				GridBagConstraints.WEST,
@@ -129,7 +151,7 @@ public class CreateView implements ISwingView, ICreateObs {
 			public void keyPressed(java.awt.event.KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 					if(new String(tmdp.getPassword()).equals(new String(tmdp2.getPassword())))
-						notifyCreate(tTag.getText(), tNom.getText(), new String(tmdp.getPassword()));
+						notifyCreate(tTag.getText(), tNom.getText(), new String(tmdp.getPassword()), avatarPath);
 					else
 						JOptionPane.showMessageDialog(null, "Les mots de passe ne correspondent pas", "Erreur", JOptionPane.ERROR_MESSAGE);
 				}
@@ -139,9 +161,21 @@ public class CreateView implements ISwingView, ICreateObs {
 		bCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				if(new String(tmdp.getPassword()).equals(new String(tmdp2.getPassword())))
-					notifyCreate(tTag.getText(), tNom.getText(), new String(tmdp.getPassword()));
+					notifyCreate(tTag.getText(), tNom.getText(), new String(tmdp.getPassword()), avatarPath);
 				else
 					JOptionPane.showMessageDialog(null, "Les mots de passe ne correspondent pas", "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		bAvatar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Image", "jpg", "jpeg", "png", "gif");
+				chooser.setFileFilter(filter);
+				int returnVal = chooser.showOpenDialog(pane);
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					bAvatar.setText(chooser.getSelectedFile().getPath());
+					avatarPath = chooser.getSelectedFile().getPath();
+				}
 			}
 		});
 
@@ -158,8 +192,8 @@ public class CreateView implements ISwingView, ICreateObs {
 	}
 
 	@Override
-	public void notifyCreate(String login, String nom, String mdp) {
-		if(!observers.addUser(login, nom, mdp)) {
+	public void notifyCreate(String login, String nom, String mdp, String aPath) {
+		if(!observers.addUser(login, nom, mdp, aPath)) {
 			JOptionPane.showMessageDialog(null, "Tag @"+login +" non disponible", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
 	}
