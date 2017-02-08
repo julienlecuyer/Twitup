@@ -52,7 +52,7 @@ public class TwitupMainViewS implements IMainView<ISwingView> {
 	/**
 	 *  Vue pour le login 
 	 */
-	protected LoginView logV = new LoginView();
+	protected LoginViewS logV = new LoginViewS();
 	/**
 	 * Constructeur.
 	 * 

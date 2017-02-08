@@ -6,20 +6,15 @@ import java.util.UUID;
 
 import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.CreateView;
-import com.iup.tp.twitup.ihm.ICreateObs;
 
 public class CreateCtrl implements ICreateCtrl {
 	protected IDatabase mDatabase;
-	protected ICreateObs view;
 	protected EntityManager mEntityManager;
-	protected ITwitupObs obs;
+	protected ITwitupObservateur obs;
 	
-	public CreateCtrl(IDatabase mDatabase, EntityManager mEntityManager, CreateView view) {
+	public CreateCtrl(IDatabase mDatabase, EntityManager mEntityManager) {
 		this.mDatabase = mDatabase;
 		this.mEntityManager = mEntityManager;
-		this.view = view;
-		view.addCreateCtrl(this);
 	}
 
 	public boolean addUser(String login, String nom, String mdp, String aPath) {
@@ -41,7 +36,7 @@ public class CreateCtrl implements ICreateCtrl {
 	}
 
 	@Override
-	public void addObserver(ITwitupObs ctrl) {
+	public void addObserver(ITwitupObservateur ctrl) {
 		obs = ctrl;
 	}
 

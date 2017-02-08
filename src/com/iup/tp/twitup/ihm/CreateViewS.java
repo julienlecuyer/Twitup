@@ -22,13 +22,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.iup.tp.twitup.core.ICreateCtrl;
 
-public class CreateView implements ISwingView, ICreateObs {
+public class CreateViewS implements ISwingView, ICreateObservable, ICreateView {
 
 	protected JPanel pane;
 	protected ICreateCtrl observers;
 	protected String avatarPath = "";
 	
-	public CreateView() {
+	public CreateViewS() {
 
 		pane = new JPanel();
 		Border border = BorderFactory.createTitledBorder("Créer un compte");

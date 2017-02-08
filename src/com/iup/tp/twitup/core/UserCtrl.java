@@ -1,29 +1,26 @@
 package com.iup.tp.twitup.core;
 
 import com.iup.tp.twitup.datamodel.IDatabase;
-import com.iup.tp.twitup.ihm.UserView;
+import com.iup.tp.twitup.ihm.IUserObservable;
 
 public class UserCtrl implements IUserCtrl {
 	protected IDatabase mDatabase;
-	protected UserView view;
 	protected EntityManager mEntityManager;
-	protected ITwitupObs obs;
+	protected ITwitupObservateur obs;
 	
-	public UserCtrl(IDatabase mDatabase, EntityManager mEntityManager, UserView v) {
+	public UserCtrl(IDatabase mDatabase, EntityManager mEntityManager) {
 		this.mDatabase = mDatabase;
 		this.mEntityManager = mEntityManager;
-		this.view = v;
-		v.addUserCtrl(this);
 	}
 
 	@Override
-	public void addObserver(ITwitupObs ctrl) {
+	public void addObserver(ITwitupObservateur ctrl) {
 		obs = ctrl;
 	}
 
 	@Override
-	public void getUser() {
-		view.getUser(obs.getUserCo());
+	public void getUser(IUserObservable o) {
+		o.getUser(obs.getUserCo());
 	}
 	
 	@Override
@@ -36,6 +33,5 @@ public class UserCtrl implements IUserCtrl {
 	public void modifAvatarUser(String avatarPath) {
 		obs.getUserCo().setAvatarPath(avatarPath);
 		mEntityManager.sendUser(obs.getUserCo());
-		getUser();
-	}	
+	}
 }

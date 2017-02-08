@@ -22,7 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.iup.tp.twitup.core.IUserCtrl;
 import com.iup.tp.twitup.datamodel.User;
 
-public class UserView implements ISwingView, IUserObs{
+public class UserViewS implements ISwingView, IUserObservable, IUserView {
 
 	protected JPanel pane;
 	protected IUserCtrl observers;
@@ -34,7 +34,7 @@ public class UserView implements ISwingView, IUserObs{
 	ImagePanel paneAvatar;
 	JButton bAvatar;
 
-	public UserView() {
+	public UserViewS() {
 
 		pane = new JPanel();
 		pane.setPreferredSize(new Dimension(800,600));

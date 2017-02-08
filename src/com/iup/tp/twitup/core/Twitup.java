@@ -18,20 +18,20 @@ import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
-import com.iup.tp.twitup.ihm.CreateView;
+import com.iup.tp.twitup.ihm.CreateViewS;
 import com.iup.tp.twitup.ihm.ISwingView;
-import com.iup.tp.twitup.ihm.LoginView;
-import com.iup.tp.twitup.ihm.TwitView;
+import com.iup.tp.twitup.ihm.LoginViewS;
+import com.iup.tp.twitup.ihm.TwitViewS;
 import com.iup.tp.twitup.ihm.TwitupMainViewS;
 import com.iup.tp.twitup.ihm.TwitupMock;
-import com.iup.tp.twitup.ihm.UserView;
+import com.iup.tp.twitup.ihm.UserViewS;
 
 /**
  * Classe principale l'application.
  * 
  * @author S.Lucas
  */
-public class Twitup implements ITwitupObs {
+public class Twitup implements ITwitupObservateur {
 	/**
 	 * Base de données.
 	 */
@@ -213,15 +213,17 @@ public class Twitup implements ITwitupObs {
 	}
 
 	public void initCreate() {
-		CreateView v =  new CreateView();
-		createCtrl = new CreateCtrl(mDatabase, mEntityManager, v);
+		CreateViewS v =  new CreateViewS();
+		createCtrl = new CreateCtrl(mDatabase, mEntityManager);
+		v.addCreateCtrl(createCtrl);
 		createCtrl.addObserver(this);
 		mMainView.showView(v);
 	}
 
 	public void initLogin() {
-		LoginView v =  new LoginView();
-		loginCtrl = new LoginCtrl(mDatabase, mEntityManager, v);
+		LoginViewS v =  new LoginViewS();
+		loginCtrl = new LoginCtrl(mDatabase, mEntityManager);
+		v.addLoginCtrl(loginCtrl);
 		loginCtrl.addObserver(this);
 		mMainView.showView(v);
 	}
@@ -244,7 +246,7 @@ public class Twitup implements ITwitupObs {
 
 	@Override
 	public void userLogged() {
-		TwitView v = new TwitView();
+		TwitViewS v = new TwitViewS();
 		twitCtrl = new TwitCtrl(mDatabase, mEntityManager, v);
 		mDatabase.addObserver(twitCtrl);
 		twitCtrl.addObserver(this);
@@ -267,10 +269,11 @@ public class Twitup implements ITwitupObs {
 	}
 	
 	public void initAccount() {
-		UserView v = new UserView();
-		userCtrl = new UserCtrl(mDatabase, mEntityManager, v);
+		UserViewS v = new UserViewS();
+		userCtrl = new UserCtrl(mDatabase, mEntityManager);
+		v.addUserCtrl(userCtrl);
 		userCtrl.addObserver(this);
-		userCtrl.getUser();
+		userCtrl.getUser(v);
 		mMainView.showView(v);
 	}
 	

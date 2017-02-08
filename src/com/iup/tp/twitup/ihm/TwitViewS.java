@@ -27,7 +27,7 @@ import javax.swing.border.TitledBorder;
 import com.iup.tp.twitup.core.ITwitCtrl;
 import com.iup.tp.twitup.datamodel.Twit;
 
-public class TwitView implements ISwingView, ITwitObs{
+public class TwitViewS implements ISwingView, ITwitObservable, ITwitView {
 
 	protected JPanel paneCreate;
 	protected JScrollPane scrollPane;
@@ -38,7 +38,7 @@ public class TwitView implements ISwingView, ITwitObs{
 
 	protected ITwitCtrl observers;
   
-	public TwitView() {
+	public TwitViewS() {
 		paneSearch = new JPanel();
 		paneSearch.setSize(new Dimension(400, 400));
 		tSearch = new JTextField();

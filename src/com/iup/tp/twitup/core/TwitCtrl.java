@@ -9,16 +9,16 @@ import com.iup.tp.twitup.datamodel.IDatabase;
 import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
-import com.iup.tp.twitup.ihm.ITwitObs;
-import com.iup.tp.twitup.ihm.TwitView;
+import com.iup.tp.twitup.ihm.ITwitObservable;
+import com.iup.tp.twitup.ihm.TwitViewS;
 
 public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 	protected IDatabase mDatabase;
-	protected ITwitObs view;
+	protected ITwitObservable view;
 	protected EntityManager mEntityManager;
-	protected ITwitupObs obs;
+	protected ITwitupObservateur obs;
 
-	public TwitCtrl(IDatabase mDatabase, EntityManager mEntityManager, TwitView view) {
+	public TwitCtrl(IDatabase mDatabase, EntityManager mEntityManager, TwitViewS view) {
 		this.mDatabase = mDatabase;
 		this.mEntityManager = mEntityManager;
 		this.view = view;
@@ -26,7 +26,7 @@ public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 	}
 
 	@Override
-	public void addObserver(ITwitupObs ctrl) {
+	public void addObserver(ITwitupObservateur ctrl) {
 		obs = ctrl;
 	}
 

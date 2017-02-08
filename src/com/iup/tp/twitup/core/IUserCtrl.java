@@ -1,10 +1,12 @@
 package com.iup.tp.twitup.core;
 
+import com.iup.tp.twitup.ihm.IUserObservable;
+
 public interface IUserCtrl {
 
-	void addObserver(ITwitupObs ctrl);
+	void addObserver(ITwitupObservateur ctrl);
 
-	void getUser();
+	void getUser(IUserObservable o);
 
 	void modifLoginUser(String login);
 
