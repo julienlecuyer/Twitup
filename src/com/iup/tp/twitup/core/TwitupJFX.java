@@ -12,6 +12,7 @@ import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
+import com.iup.tp.twitup.ihm.CreateViewJFX;
 import com.iup.tp.twitup.ihm.IView;
 import com.iup.tp.twitup.ihm.LoginViewJFX;
 import com.iup.tp.twitup.ihm.TwitupMainViewJFX;
@@ -173,11 +174,11 @@ public class TwitupJFX implements ITwitupObservateur {
 	}
 
 	public void initCreate() {
-//		CreateViewJFX v =  new CreateViewJFX();
-//		createCtrl = new CreateCtrl(mDatabase, mEntityManager);
-//		v.addCreateCtrl(createCtrl);
-//		createCtrl.addObserver(this);
-//		mMainView.showView(v);
+		CreateViewJFX v =  new CreateViewJFX();
+		createCtrl = new CreateCtrl(mDatabase, mEntityManager);
+		v.addCreateCtrl(createCtrl);
+		createCtrl.addObserver(this);
+		mMainView.showView(v);
 	}
 
 	public void initLogin() {
