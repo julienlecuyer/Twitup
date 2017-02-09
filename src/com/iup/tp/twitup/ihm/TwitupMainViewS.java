@@ -1,5 +1,6 @@
 package com.iup.tp.twitup.ihm;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,7 +21,7 @@ import javax.swing.SwingUtilities;
 import com.iup.tp.twitup.common.Constants;
 import com.iup.tp.twitup.common.PropertiesManager;
 import com.iup.tp.twitup.core.EntityManager;
-import com.iup.tp.twitup.core.Twitup;
+import com.iup.tp.twitup.core.TwitupS;
 
 public class TwitupMainViewS implements IMainView<ISwingView> {
 
@@ -32,7 +33,7 @@ public class TwitupMainViewS implements IMainView<ISwingView> {
 	/**
 	 * Base de donénes de l'application.
 	 */
-	protected Twitup ctrl;
+	protected TwitupS ctrl;
 	/**
 	 * Gestionnaire de bdd et de fichier.
 	 */
@@ -60,7 +61,7 @@ public class TwitupMainViewS implements IMainView<ISwingView> {
 	 *            , Base de données de l'application.
 	 */
 
-	public TwitupMainViewS(Twitup ctrl) {
+	public TwitupMainViewS(TwitupS ctrl) {
 		this.ctrl = ctrl;
 	}
 
@@ -94,13 +95,13 @@ public class TwitupMainViewS implements IMainView<ISwingView> {
 	 * Initialisation de l'IHM
 	 */
 	protected void initGUI() {
-		if (Twitup.getProp().getProperty("EXCHANGE_DIRECTORY") == null) {
+		if (TwitupS.getProp().getProperty("EXCHANGE_DIRECTORY") == null) {
 			JFileChooser chooser = new JFileChooser();
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			int returnVal = chooser.showOpenDialog(mFrame);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				Twitup.getProp().setProperty("EXCHANGE_DIRECTORY", chooser.getSelectedFile().getPath());
-				PropertiesManager.writeProperties(Twitup.getProp(), Constants.CONFIGURATION_FILE);
+				TwitupS.getProp().setProperty("EXCHANGE_DIRECTORY", chooser.getSelectedFile().getPath());
+				PropertiesManager.writeProperties(TwitupS.getProp(), Constants.CONFIGURATION_FILE);
 				System.out.println(chooser.getSelectedFile().getPath());
 			}
 		}
@@ -155,12 +156,12 @@ public class TwitupMainViewS implements IMainView<ISwingView> {
 		});
 		mApropos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				ctrl.showApropos(mFrame);
+				ctrl.showApropos();
 			}
 		});
 		mFilechooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				ctrl.chooseFile(mFrame);
+				chooseFile(mFrame);
 			}
 		});
 
@@ -209,5 +210,16 @@ public class TwitupMainViewS implements IMainView<ISwingView> {
 				));
 		mPanel.revalidate();
 		mPanel.repaint();
+	}
+	
+	public void chooseFile(Component parent) {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		int returnVal = chooser.showOpenDialog(parent);
+		if(returnVal == JFileChooser.APPROVE_OPTION) {
+			TwitupS.getProp().setProperty("EXCHANGE_DIRECTORY", chooser.getSelectedFile().getPath());
+			PropertiesManager.writeProperties(TwitupS.getProp(), Constants.CONFIGURATION_FILE);
+			System.out.println(chooser.getSelectedFile().getPath());
+		}
 	}
 }

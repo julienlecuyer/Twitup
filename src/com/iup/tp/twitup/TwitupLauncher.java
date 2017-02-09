@@ -1,6 +1,6 @@
 package com.iup.tp.twitup;
 
-import com.iup.tp.twitup.core.Twitup;
+import com.iup.tp.twitup.core.TwitupS;
 
 /**
  * Classe de lancement de l'application.
@@ -15,7 +15,7 @@ public class TwitupLauncher {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Twitup twitup = new Twitup();
+		TwitupS twitup = new TwitupS();
 		twitup.show();
 		
 //		JAVAFX

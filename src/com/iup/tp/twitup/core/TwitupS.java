@@ -31,7 +31,7 @@ import com.iup.tp.twitup.ihm.UserViewS;
  * 
  * @author S.Lucas
  */
-public class Twitup implements ITwitupObservateur {
+public class TwitupS implements ITwitupObservateur {
 	/**
 	 * Base de données.
 	 */
@@ -80,7 +80,7 @@ public class Twitup implements ITwitupObservateur {
 	/**
 	 * Constructeur.
 	 */
-	public Twitup() {
+	public TwitupS() {
 		userCo = null;
 		prop = PropertiesManager.loadProperties(Constants.CONFIGURATION_FILE);
 		// Init du look and feel de l'application
@@ -198,13 +198,13 @@ public class Twitup implements ITwitupObservateur {
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		int returnVal = chooser.showOpenDialog(parent);
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
-			Twitup.getProp().setProperty("EXCHANGE_DIRECTORY", chooser.getSelectedFile().getPath());
-			PropertiesManager.writeProperties(Twitup.getProp(), Constants.CONFIGURATION_FILE);
+			TwitupS.getProp().setProperty("EXCHANGE_DIRECTORY", chooser.getSelectedFile().getPath());
+			PropertiesManager.writeProperties(TwitupS.getProp(), Constants.CONFIGURATION_FILE);
 			System.out.println(chooser.getSelectedFile().getPath());
 		}
 	}
 
-	public void showApropos(Component parent) {
+	public void showApropos() {
 		JOptionPane.showMessageDialog(null, "Baloss Twitter v0\nDévelopper : Julien Lécuyer", "A propos", JOptionPane.INFORMATION_MESSAGE);
 	}
 
