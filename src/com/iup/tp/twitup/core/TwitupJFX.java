@@ -13,6 +13,7 @@ import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.ISwingView;
+import com.iup.tp.twitup.ihm.LoginViewJFX;
 import com.iup.tp.twitup.ihm.TwitupMainViewJFX;
 import com.iup.tp.twitup.ihm.TwitupMock;
 
@@ -72,7 +73,7 @@ public class TwitupJFX implements ITwitupObservateur {
 	/**
 	 * Constructeur.
 	 */
-	public TwitupJFX() {
+	public TwitupJFX(Stage s) {
 		userCo = null;
 		prop = PropertiesManager.loadProperties(Constants.CONFIGURATION_FILE);
 		// Initialisation de la base de données
@@ -84,7 +85,7 @@ public class TwitupJFX implements ITwitupObservateur {
 		}
 
 		// Initialisation de l'IHM
-		this.initGui();
+		this.initGui(s);
 
 		// Initialisation du répertoire d'échange
 		this.initDirectory();
@@ -97,7 +98,7 @@ public class TwitupJFX implements ITwitupObservateur {
 	 */
 	protected void initGui(Stage s) {
 		mMainView = new TwitupMainViewJFX(this, s);
-		mMainView.showGUI();
+		mMainView.showGUI(s);
 	}
 
 	/**
@@ -155,9 +156,6 @@ public class TwitupJFX implements ITwitupObservateur {
 		mWatchableDirectory.addObserver(mEntityManager);
 	}
 
-	public void show(Stage s) {
-		initGui(s);
-	}
 
 	public static Properties getProp() {
 		return prop;
@@ -174,13 +172,13 @@ public class TwitupJFX implements ITwitupObservateur {
 		System.exit(0);
 	}
 
-//	public void initCreate() {
+	public void initCreate() {
 //		CreateViewJFX v =  new CreateViewJFX();
 //		createCtrl = new CreateCtrl(mDatabase, mEntityManager);
 //		v.addCreateCtrl(createCtrl);
 //		createCtrl.addObserver(this);
 //		mMainView.showView(v);
-//	}
+	}
 
 	public void initLogin() {
 		LoginViewJFX v =  new LoginViewJFX();

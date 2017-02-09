@@ -185,9 +185,6 @@ public class TwitupS implements ITwitupObservateur {
 		mWatchableDirectory.addObserver(mEntityManager);
 	}
 
-	public void show() {
-		//initGui();
-	}
 
 	public static Properties getProp() {
 		return prop;
