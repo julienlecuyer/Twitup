@@ -1,22 +1,8 @@
 package com.iup.tp.twitup.ihm;
 
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import com.iup.tp.twitup.common.Constants;
 import com.iup.tp.twitup.common.PropertiesManager;
@@ -26,17 +12,16 @@ import com.iup.tp.twitup.core.TwitupS;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class TwitupMainViewJFX implements IMainView<ISwingView> {
+public class TwitupMainViewJFX implements IMainView<IJFXView> {
 
 	/**
 	 * Fenetre du bouchon
 	 */
 	
-	final GridPane root;
-	final Scene scene;
+	 GridPane root;
+	 Scene scene;
 	
 	protected Stage mStage;
 	
@@ -60,15 +45,14 @@ public class TwitupMainViewJFX implements IMainView<ISwingView> {
 	 *            , Base de données de l'application.
 	 */
 
-	public TwitupMainViewJFX(TwitupJFX ctrl, Stage stage) {
+	public TwitupMainViewJFX(TwitupJFX ctrl, Stage s) {
 		this.ctrl = ctrl;
-		this.mStage = stage;
 	}
 
 	/**
 	 * Lance l'afficahge de l'IHM.
 	 */
-	public void showGUI() {
+	public void showGUI(Stage s) {
 		
 	}
 
@@ -95,7 +79,7 @@ public class TwitupMainViewJFX implements IMainView<ISwingView> {
 	}
 
 	@Override
-	public void showView(ISwingView v) {
+	public void showView(IJFXView v) {
 	}
 	
 	public void chooseFile(Component parent) {

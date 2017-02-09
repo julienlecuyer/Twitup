@@ -15,8 +15,8 @@ public class TwitupLauncher {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		TwitupS twitup = new TwitupS();
-		twitup.show();
+		new TwitupS();
+
 		
 //		JAVAFX
 //		MockController mockController = new MockController(twitup.getDatabase());

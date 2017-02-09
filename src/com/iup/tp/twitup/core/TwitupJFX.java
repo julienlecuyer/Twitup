@@ -1,13 +1,7 @@
 package com.iup.tp.twitup.core;
 
-import java.awt.Component;
 import java.io.File;
 import java.util.Properties;
-
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import com.iup.tp.twitup.common.Constants;
 import com.iup.tp.twitup.common.PropertiesManager;
@@ -18,13 +12,12 @@ import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
-import com.iup.tp.twitup.ihm.CreateViewS;
 import com.iup.tp.twitup.ihm.ISwingView;
-import com.iup.tp.twitup.ihm.LoginViewS;
-import com.iup.tp.twitup.ihm.TwitViewS;
-import com.iup.tp.twitup.ihm.TwitupMainViewS;
+import com.iup.tp.twitup.ihm.LoginViewJFX;
+import com.iup.tp.twitup.ihm.TwitupMainViewJFX;
 import com.iup.tp.twitup.ihm.TwitupMock;
-import com.iup.tp.twitup.ihm.UserViewS;
+
+import javafx.stage.Stage;
 
 /**
  * Classe principale l'application.
@@ -55,7 +48,7 @@ public class TwitupJFX implements ITwitupObservateur {
 	/**
 	 * Vue principale de l'application.
 	 */
-	protected TwitupMainViewS mMainView;
+	protected TwitupMainViewJFX mMainView;
 
 	/**
 	 * Classe de surveillance de répertoire
@@ -80,12 +73,9 @@ public class TwitupJFX implements ITwitupObservateur {
 	/**
 	 * Constructeur.
 	 */
-	public TwitupJFX() {
+	public TwitupJFX(Stage s) {
 		userCo = null;
 		prop = PropertiesManager.loadProperties(Constants.CONFIGURATION_FILE);
-		// Init du look and feel de l'application
-		this.initLookAndFeel();
-
 		// Initialisation de la base de données
 		this.initDatabase();
 
@@ -95,39 +85,20 @@ public class TwitupJFX implements ITwitupObservateur {
 		}
 
 		// Initialisation de l'IHM
-		this.initGui();
+		this.initGui(s);
 
 		// Initialisation du répertoire d'échange
 		this.initDirectory();
 	}
 
-	/**
-	 * Initialisation du look and feel de l'application.
-	 */
-	protected void initLookAndFeel() {
-		try {
-			UIManager.setLookAndFeel(prop.getProperty("UI_CLASS_NAME"));
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Initialisation de l'interface graphique.
+	 * @param s 
 	 */
-	protected void initGui() {
-		mMainView = new TwitupMainViewJFX(this);
-		mMainView.showGUI();
+	protected void initGui(Stage s) {
+		mMainView = new TwitupMainViewJFX(this, s);
+		mMainView.showGUI(s);
 	}
 
 	/**
@@ -185,27 +156,16 @@ public class TwitupJFX implements ITwitupObservateur {
 		mWatchableDirectory.addObserver(mEntityManager);
 	}
 
-	public void show() {
-		//initGui();
-	}
 
 	public static Properties getProp() {
 		return prop;
 	}
 
-	public void chooseFile(Component parent) {
-		JFileChooser chooser = new JFileChooser();
-		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		int returnVal = chooser.showOpenDialog(parent);
-		if(returnVal == JFileChooser.APPROVE_OPTION) {
-			TwitupJFX.getProp().setProperty("EXCHANGE_DIRECTORY", chooser.getSelectedFile().getPath());
-			PropertiesManager.writeProperties(TwitupJFX.getProp(), Constants.CONFIGURATION_FILE);
-			System.out.println(chooser.getSelectedFile().getPath());
-		}
+	public void chooseFile() {
+
 	}
 
 	public void showApropos() {
-		JOptionPane.showMessageDialog(null, "Baloss Twitter v0\nDévelopper : Julien Lécuyer", "A propos", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void exitFrame() {
@@ -213,15 +173,15 @@ public class TwitupJFX implements ITwitupObservateur {
 	}
 
 	public void initCreate() {
-		CreateViewS v =  new CreateViewS();
-		createCtrl = new CreateCtrl(mDatabase, mEntityManager);
-		v.addCreateCtrl(createCtrl);
-		createCtrl.addObserver(this);
-		mMainView.showView(v);
+//		CreateViewJFX v =  new CreateViewJFX();
+//		createCtrl = new CreateCtrl(mDatabase, mEntityManager);
+//		v.addCreateCtrl(createCtrl);
+//		createCtrl.addObserver(this);
+//		mMainView.showView(v);
 	}
 
 	public void initLogin() {
-		LoginViewS v =  new LoginViewS();
+		LoginViewJFX v =  new LoginViewJFX();
 		loginCtrl = new LoginCtrl(mDatabase, mEntityManager);
 		v.addLoginCtrl(loginCtrl);
 		loginCtrl.addObserver(this);
@@ -230,8 +190,8 @@ public class TwitupJFX implements ITwitupObservateur {
 	
 	@Override
 	public void userCreated() {
-		System.out.println("Connection vue");
-		initLogin();
+//		System.out.println("Connection vue");
+//		initLogin();
 	}
 
 	@Override
@@ -246,14 +206,15 @@ public class TwitupJFX implements ITwitupObservateur {
 
 	@Override
 	public void userLogged() {
-		TwitViewS v = new TwitViewS();
-		twitCtrl = new TwitCtrl(mDatabase, mEntityManager, v);
-		mDatabase.addObserver(twitCtrl);
-		twitCtrl.addObserver(this);
-		twitCtrl.listTwitCtrl(null);
-		mMainView.showView(v);
-		System.out.println("user logged");
-		mMainView.refreshMenuLabel();
+//		TwitViewS v = new TwitViewS();
+//		twitCtrl = new TwitCtrl(mDatabase, mEntityManager, v);
+//		mDatabase.addObserver(twitCtrl);
+//		twitCtrl.addObserver(this);
+//		twitCtrl.listTwitCtrl(null);
+//		mMainView.showView(v);
+//		System.out.println("user logged");
+//		mMainView.refreshMenuLabel();
+		System.out.println("User connecté");
 	}
 
 	public void initHome() {
@@ -264,24 +225,25 @@ public class TwitupJFX implements ITwitupObservateur {
 		}
 	}
 	
+	@Override
 	public void twitCreated(ISwingView view) {
-		mMainView.showView(view);
+//		mMainView.showView(view);
 	}
 	
-	public void initAccount() {
-		UserViewS v = new UserViewS();
-		userCtrl = new UserCtrl(mDatabase, mEntityManager);
-		v.addUserCtrl(userCtrl);
-		userCtrl.addObserver(this);
-		userCtrl.getUser(v);
-		mMainView.showView(v);
-	}
+//	public void initAccount() {
+//		UserViewS v = new UserViewS();
+//		userCtrl = new UserCtrl(mDatabase, mEntityManager);
+//		v.addUserCtrl(userCtrl);
+//		userCtrl.addObserver(this);
+//		userCtrl.getUser(v);
+//		mMainView.showView(v);
+//	}
 	
-	public void decoUser() {
-		userCo = null;
-		mMainView.refreshMenuLabel();
-		initLogin();
-	}
+//	public void decoUser() {
+//		userCo = null;
+//		mMainView.refreshMenuLabel();
+//		initLogin();
+//	}
 	
 	public IDatabase getDatabase() {
 		// TODO Auto-generated method stub
