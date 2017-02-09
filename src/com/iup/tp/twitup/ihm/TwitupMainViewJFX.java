@@ -47,13 +47,14 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 
 	public TwitupMainViewJFX(TwitupJFX ctrl, Stage s) {
 		this.ctrl = ctrl;
+		mStage=s;
 	}
 
 	/**
 	 * Lance l'afficahge de l'IHM.
 	 */
-	public void showGUI(Stage s) {
-		
+	public void showGUI() {
+		initGUI();
 	}
 
 	/**
@@ -65,8 +66,11 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 		// Création de la fenetre principale
 		final GridPane root = new GridPane();
 
-		final Scene scene = new Scene(root, 800, 600);
-		
+		Scene scene = new Scene(root, 800, 600);
+		mStage.setTitle("Baloss Twitter");
+		mStage.setScene(scene);
+		mStage.sizeToScene();
+		mStage.show();
 
 		ctrl.initLogin();
 	}

@@ -98,7 +98,7 @@ public class TwitupJFX implements ITwitupObservateur {
 	 */
 	protected void initGui(Stage s) {
 		mMainView = new TwitupMainViewJFX(this, s);
-		mMainView.showGUI(s);
+		mMainView.showGUI();
 	}
 
 	/**
