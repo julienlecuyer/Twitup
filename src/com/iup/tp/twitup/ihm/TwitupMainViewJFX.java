@@ -2,9 +2,13 @@ package com.iup.tp.twitup.ihm;
 
 import java.awt.Component;
 
+import javax.swing.JMenuItem;
+
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.core.TwitupJFX;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -97,18 +101,33 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 	}
 
 	protected MenuBar createMenuBar() {
-		MenuItem item1 = new MenuItem("i1");
-		MenuItem item2 = new MenuItem("i2");
-		MenuItem item3 = new MenuItem("i3");
+		MenuItem mHome = new MenuItem("Accueil	");
+		MenuItem mApropos = new MenuItem("A propos");
+		MenuItem mExit = new MenuItem("Quitter");
+		Menu mParam = new Menu("Paramètres");
+		MenuItem mFilechooser = new MenuItem("Choisir le fichier de configuration ...");
+		
+		MenuItem mnewUser = new MenuItem("Créer un nouveau compte ...");
+		MenuItem mDeco = new MenuItem("Déconnexion");
+		MenuItem mAccount = new MenuItem("Mon compte");
+		
+		mParam.getItems().addAll(mFilechooser);
+		
+		Menu mFichier = new Menu("Fichier");
+		mFichier.getItems().addAll(mHome, mApropos,mParam, mExit);
 
-		Menu menu1 = new Menu("First");
-		menu1.getItems().addAll(item1, item2);
-
-		Menu menu2 = new Menu("Second");
-		menu2.getItems().addAll(item3);
+		Menu mUser = new Menu("Utilisateur");
+		mUser.getItems().addAll(mnewUser,mDeco,mAccount);
 
 		MenuBar mb = new MenuBar();
-		mb.getMenus().addAll(menu1, menu2);
+		mb.getMenus().addAll(mFichier, mUser);
+		
+		mnewUser.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	initCreate();
+            }
+        });
 
 		return mb;
 	}
