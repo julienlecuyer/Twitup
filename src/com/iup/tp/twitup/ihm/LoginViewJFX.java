@@ -23,7 +23,7 @@ public class LoginViewJFX implements IJFXView, ILoginObservable, ILoginView {
 		mGrid.setVgap(10);
 		TextField tlogin = new TextField();
 		PasswordField tpass = new PasswordField();
-		
+
 		mGrid.add(new Label("Username :"), 0, 0);
 		mGrid.add(tlogin, 1, 0);
 		mGrid.add(new Label("Password :"), 0, 1);

@@ -12,7 +12,7 @@ import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
-import com.iup.tp.twitup.ihm.ISwingView;
+import com.iup.tp.twitup.ihm.IView;
 import com.iup.tp.twitup.ihm.LoginViewJFX;
 import com.iup.tp.twitup.ihm.TwitupMainViewJFX;
 import com.iup.tp.twitup.ihm.TwitupMock;
@@ -226,7 +226,7 @@ public class TwitupJFX implements ITwitupObservateur {
 	}
 	
 	@Override
-	public void twitCreated(ISwingView view) {
+	public void twitCreated(IView view) {
 //		mMainView.showView(view);
 	}
 	
