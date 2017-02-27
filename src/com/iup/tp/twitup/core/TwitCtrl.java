@@ -10,7 +10,6 @@ import com.iup.tp.twitup.datamodel.IDatabaseObserver;
 import com.iup.tp.twitup.datamodel.Twit;
 import com.iup.tp.twitup.datamodel.User;
 import com.iup.tp.twitup.ihm.ITwitObservable;
-import com.iup.tp.twitup.ihm.TwitViewS;
 
 public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 	protected IDatabase mDatabase;
@@ -18,7 +17,7 @@ public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 	protected EntityManager mEntityManager;
 	protected ITwitupObservateur obs;
 
-	public TwitCtrl(IDatabase mDatabase, EntityManager mEntityManager, TwitViewS view) {
+	public TwitCtrl(IDatabase mDatabase, EntityManager mEntityManager, ITwitObservable view) {
 		this.mDatabase = mDatabase;
 		this.mEntityManager = mEntityManager;
 		this.view = view;

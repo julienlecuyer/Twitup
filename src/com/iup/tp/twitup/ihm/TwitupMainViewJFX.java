@@ -2,8 +2,6 @@ package com.iup.tp.twitup.ihm;
 
 import java.awt.Component;
 
-import javax.swing.JMenuItem;
-
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.core.TwitupJFX;
 

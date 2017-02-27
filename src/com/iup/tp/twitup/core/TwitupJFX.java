@@ -14,6 +14,7 @@ import com.iup.tp.twitup.events.file.IWatchableDirectory;
 import com.iup.tp.twitup.events.file.WatchableDirectory;
 import com.iup.tp.twitup.ihm.IView;
 import com.iup.tp.twitup.ihm.LoginViewJFX;
+import com.iup.tp.twitup.ihm.TwitViewJFX;
 import com.iup.tp.twitup.ihm.TwitupMainViewJFX;
 import com.iup.tp.twitup.ihm.TwitupMock;
 
@@ -206,15 +207,14 @@ public class TwitupJFX implements ITwitupObservateur {
 
 	@Override
 	public void userLogged() {
-//		TwitViewS v = new TwitViewS();
-//		twitCtrl = new TwitCtrl(mDatabase, mEntityManager, v);
-//		mDatabase.addObserver(twitCtrl);
-//		twitCtrl.addObserver(this);
-//		twitCtrl.listTwitCtrl(null);
-//		mMainView.showView(v);
-//		System.out.println("user logged");
-//		mMainView.refreshMenuLabel();
-		System.out.println("User connecté");
+		TwitViewJFX v = new TwitViewJFX();
+		twitCtrl = new TwitCtrl(mDatabase, mEntityManager, v);
+		mDatabase.addObserver(twitCtrl);
+		twitCtrl.addObserver(this);
+		twitCtrl.listTwitCtrl(null);
+		mMainView.showView(v);
+		System.out.println("user logged");
+		mMainView.refreshMenuLabel();
 	}
 
 	public void initHome() {

@@ -235,7 +235,6 @@ public class TwitViewS implements ISwingView, ITwitObservable, ITwitView {
 
 	@Override
 	public void notifyNeedListTwit(String search) {
-		// TODO Auto-generated method stub
 		observers.listTwitCtrl(search);
 	}
 
