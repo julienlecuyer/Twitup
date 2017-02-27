@@ -3,6 +3,8 @@ package com.iup.tp.twitup.core;
 import java.io.File;
 import java.util.Properties;
 
+import javax.swing.JOptionPane;
+
 import com.iup.tp.twitup.common.Constants;
 import com.iup.tp.twitup.common.PropertiesManager;
 import com.iup.tp.twitup.datamodel.ConsoleDatabaseObserver;
@@ -168,6 +170,7 @@ public class TwitupJFX implements ITwitupObservateur {
 	}
 
 	public void showApropos() {
+		JOptionPane.showMessageDialog(null, "Baloss Twitter v0\nDéveloppers : Julien Lécuyer & Etienne Le Roux", "A propos", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	public void exitFrame() {
