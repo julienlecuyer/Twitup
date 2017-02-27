@@ -32,7 +32,7 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 	 */
 	
 	GridPane root;
-	
+	Menu mUser;
 	protected Stage mStage;
 	protected Scene mScene;
 	protected Group mGroup;
@@ -114,7 +114,7 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 		Menu mFichier = new Menu("Fichier");
 		mFichier.getItems().addAll(mHome, mApropos,mParam, mExit);
 
-		Menu mUser = new Menu("Utilisateur");
+		mUser = new Menu("Utilisateur");
 		mUser.getItems().addAll(mnewUser,mDeco,mAccount);
 
 		MenuBar mb = new MenuBar();
@@ -160,7 +160,11 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 	}
 	
 	public void refreshMenuLabel() {
-		//mMenuBar
+		if(ctrl.getUserCo() != null) {
+			mUser.setText("Utilisateur "+ctrl.getUserCo().getName());
+		} else {
+			mUser.setText("Utilisateur invité");
+		}
 	}
 
 	@Override

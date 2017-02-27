@@ -11,11 +11,18 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -85,6 +92,7 @@ public class TwitViewJFX implements IJFXView, ITwitObservable, ITwitView {
 			twitPane.add(userN, 0, 0);
 			twitPane.add(content, 0, 1 );
 			twitPane.add(date, 1, 0);
+			twitPane.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(0.01))));
 			listPane.add(twitPane, 0, i);
 			i++;
 		}
@@ -93,39 +101,13 @@ public class TwitViewJFX implements IJFXView, ITwitObservable, ITwitView {
 
 	@Override
 	public Pane getPane() {
-		mGrid.add(listPane, 0, 3);
-		//		JPanel pane = new JPanel();
-		//		pane.setLayout(new GridBagLayout());
-		//		Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		//		pane.setPreferredSize(new Dimension((int)(screenSize.width/1.7), (int)(screenSize.height/1.5)));
-		//
-		//		pane.add(paneSearch, new GridBagConstraints(
-		//				0, 0,
-		//				1, 1,
-		//				1.0, 1.0,
-		//				GridBagConstraints.NORTH,
-		//				GridBagConstraints.BOTH,
-		//				new Insets(0,0,0,0),
-		//				0, 0
-		//				));
-		//		pane.add(paneCreate, new GridBagConstraints(
-		//				0, 1,
-		//				1, 1,
-		//				1.0, 5.0,
-		//				GridBagConstraints.NORTH,
-		//				GridBagConstraints.BOTH,
-		//				new Insets(0,0,0,0),
-		//				0, 0
-		//				));
-		//		pane.add(scrollPane, new GridBagConstraints(
-		//				0, 2,
-		//				1, 1,
-		//				1.0, 20.0,
-		//				GridBagConstraints.SOUTH,
-		//				GridBagConstraints.BOTH,
-		//				new Insets(0,0,0,0),
-		//				0, 0
-		//				));
+		ScrollPane sp = new ScrollPane(listPane);
+        mGrid.add(sp, 0, 3);
+        GridPane.setHgrow(sp, Priority.ALWAYS);
+        sp.setPrefHeight(500);
+        sp.setFitToHeight(true);
+        sp.setFitToWidth(true);
+
 		return mGrid;
 	}
 
