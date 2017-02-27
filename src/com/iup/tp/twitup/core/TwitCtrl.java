@@ -23,7 +23,7 @@ public class TwitCtrl implements ITwitCtrl, IDatabaseObserver {
 		this.view = view;
 		view.addTwitCtrl(this);
 	}
-
+	
 	@Override
 	public void addObserver(ITwitupObservateur ctrl) {
 		obs = ctrl;

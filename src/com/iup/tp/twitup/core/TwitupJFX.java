@@ -192,8 +192,8 @@ public class TwitupJFX implements ITwitupObservateur {
 	
 	@Override
 	public void userCreated() {
-//		System.out.println("Connection vue");
-//		initLogin();
+		System.out.println("Connection vue");
+		initLogin();
 	}
 
 	@Override
@@ -218,6 +218,12 @@ public class TwitupJFX implements ITwitupObservateur {
 		mMainView.refreshMenuLabel();
 	}
 
+	public void decoUser() {
+		userCo = null;
+		mMainView.refreshMenuLabel();
+		initLogin();
+	}
+	
 	public void initHome() {
 		if(userCo != null) {
 			userLogged();

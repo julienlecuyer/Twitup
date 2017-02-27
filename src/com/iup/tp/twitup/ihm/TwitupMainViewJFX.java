@@ -1,9 +1,7 @@
 package com.iup.tp.twitup.ihm;
 
-import java.awt.Component;
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.core.TwitupJFX;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -67,8 +65,8 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 	protected void initGUI() {
 		GridPane root = new GridPane();
 		mScene = new Scene(root, 800, 600);
-//		mStage.sizeToScene();
-		mStage.setTitle("Test");
+		mStage.sizeToScene();
+		mStage.setTitle("Twitup Baloss");
 		mStage.setScene(mScene);
 		mStage.show();
 		initRoot(root);
@@ -88,13 +86,6 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 
 		root.add(mGroup, 0, 1);
 		ctrl.initLogin();
-//		mGroup.getChildren().add(dummyLoginView);
-	}
-
-	protected void changeContainer() {
-//		mGroup.getChildren().clear();
-//		Node dummySecond = this.createDummySecondComponent();
-//		mGroup.getChildren().add(dummySecond);
 	}
 
 	protected MenuBar createMenuBar() {
@@ -125,6 +116,13 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
             	initCreate();
             }
         });
+		
+		mDeco.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	ctrl.decoUser();
+            }
+        });
 
 		return mb;
 	}
@@ -134,14 +132,12 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 	}
 
 	public void refreshMenuLabel() {
+		//mMenuBar
 	}
 
 	@Override
 	public void showView(IJFXView v) {
 		mGroup.getChildren().clear();
 		mGroup.getChildren().add(v.getPane());
-	}
-	
-	public void chooseFile(Component parent) {
 	}
 }

@@ -2,13 +2,8 @@ package com.iup.tp.twitup.ihm;
 
 
 import java.io.File;
-
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.iup.tp.twitup.core.ICreateCtrl;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -18,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 public class CreateViewJFX implements IJFXView, ICreateObservable, ICreateView {
 
@@ -65,7 +59,7 @@ public class CreateViewJFX implements IJFXView, ICreateObservable, ICreateView {
 				}
 			}
 		});
-		
+
 		bAvatar.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -106,6 +100,7 @@ public class CreateViewJFX implements IJFXView, ICreateObservable, ICreateView {
 		if(!observers.addUser(login, nom, mdp, aPath)) {
 			JOptionPane.showMessageDialog(null, "Tag @"+login +" non disponible", "Erreur", JOptionPane.ERROR_MESSAGE);
 		}
+		
 	}
 
 	@Override

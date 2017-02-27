@@ -32,7 +32,7 @@ public class TwitViewJFX implements IJFXView, ITwitObservable, ITwitView {
 		mGrid.setHgap(10);
 		mGrid.setVgap(10);
 		TextField tsearch = new TextField();
-
+		
 		mGrid.add(tsearch, 0, 0);
 
 		Button btn = new Button("Rechercher");
@@ -64,7 +64,6 @@ public class TwitViewJFX implements IJFXView, ITwitObservable, ITwitView {
 	}
 
 	public void listTwits(ArrayList<Twit> twits, String search) {
-//		listPane.getChildren().clear();
 		int i = 0;
 		for(Twit t : twits) {
 			GridPane twitPane = new GridPane();
@@ -82,44 +81,13 @@ public class TwitViewJFX implements IJFXView, ITwitObservable, ITwitView {
 			userN.setTextFill(Color.GREY);
 			userN.setFont(new Font("Arial", 14));
 			content.setFont(new Font("Arial", 17));
-//					content.setFont(new Font("Arial", Font.PLAIN, 18));
-//			content.setForeground(Color.BLACK);
-			
+
 			twitPane.add(userN, 0, 0);
 			twitPane.add(content, 0, 1 );
 			twitPane.add(date, 1, 0);
-//			pt.add(content, new GridBagConstraints(
-//					0, 1,
-//					1, 1,
-//					1.0, 1.0,
-//					GridBagConstraints.WEST,
-//					GridBagConstraints.HORIZONTAL,
-//					new Insets(0,0,0,0),
-//					0, 0
-//					));
-//			pt.add(date, new GridBagConstraints(
-//					2,0,
-//					1, 1,
-//					0.01, 1.0,
-//					GridBagConstraints.EAST,
-//					GridBagConstraints.HORIZONTAL,
-//					new Insets(-20,0,0,0),
-//					0, 0
-//					));
-//			paneList.add(pt, new GridBagConstraints(
-//					0, i,
-//					1, 1,
-//					1.0, 1.0,
-//					GridBagConstraints.NORTH,
-//					GridBagConstraints.HORIZONTAL,
-//					new Insets(0,0,0,0),
-//					0, 0
-//					));
 			listPane.add(twitPane, 0, i);
 			i++;
 		}
-//		paneList.revalidate();
-//		paneList.repaint();
 	}
 
 
