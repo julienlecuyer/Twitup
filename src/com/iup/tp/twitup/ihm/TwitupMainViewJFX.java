@@ -1,11 +1,6 @@
 package com.iup.tp.twitup.ihm;
 
 import java.awt.Component;
-
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://github.com/julienlecuyer/Twitup.git
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.core.TwitupJFX;
 
