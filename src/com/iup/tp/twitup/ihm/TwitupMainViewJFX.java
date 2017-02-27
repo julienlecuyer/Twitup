@@ -1,5 +1,13 @@
 package com.iup.tp.twitup.ihm;
 
+
+import java.awt.Component;
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
+import com.iup.tp.twitup.common.Constants;
+import com.iup.tp.twitup.common.PropertiesManager;
 import com.iup.tp.twitup.core.EntityManager;
 import com.iup.tp.twitup.core.TwitupJFX;
 import javafx.event.ActionEvent;
@@ -13,6 +21,8 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class TwitupMainViewJFX implements IMainView<IJFXView> {
@@ -123,6 +133,20 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
             	ctrl.decoUser();
             }
         });
+		
+		mHome.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+            	initHome();
+            }
+        });
+		
+		mFilechooser.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				chooseFile(mStage);
+			}
+		});
 
 		return mb;
 	}
@@ -131,6 +155,10 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 		ctrl.initCreate();
 	}
 
+	public void initHome() {
+		ctrl.initHome();
+	}
+	
 	public void refreshMenuLabel() {
 		//mMenuBar
 	}
@@ -140,4 +168,13 @@ public class TwitupMainViewJFX implements IMainView<IJFXView> {
 		mGroup.getChildren().clear();
 		mGroup.getChildren().add(v.getPane());
 	}
+
+	
+	public void chooseFile(Stage parent) {
+		DirectoryChooser chooser = new DirectoryChooser();
+		File returnVal = chooser.showDialog(parent);
+		TwitupJFX.getProp().setProperty("EXCHANGE_DIRECTORY", returnVal.getPath());
+		PropertiesManager.writeProperties(TwitupJFX.getProp(), Constants.CONFIGURATION_FILE);
+		System.out.println(returnVal.getPath());
+	}		
 }
